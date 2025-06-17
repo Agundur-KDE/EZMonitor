@@ -13,7 +13,7 @@
   <a href="https://store.kde.org/p/2290729">
   <img src="https://img.shields.io/badge/KDE%20Plasma-1D99F3?logo=kdeplasma&logoColor=fff" alt="EZMonitor">
   
-
+  <script src="https://liberapay.com/Agundur/widgets/button.js"></script>
 <noscript><a href="https://liberapay.com/Agundur/donate"><img alt="Donate using Liberapay" src="https://liberapay.com/assets/widgets/donate.svg"></a></noscript>
 </a></div>
 
@@ -26,6 +26,10 @@ Developed for the APsystems EZ1 microinverter series, it connects to the local J
 - 🔄 Updates every 10 seconds
 
 No cloud service, no third-party backend – all data stays local.
+
+## 🏠 Homepage
+
+📦 [https://github.com/Agundur-KDE/EZMonitor](https://github.com/Agundur-KDE/EZMonitor)
 
 ## ✅ Features
 
@@ -105,7 +109,7 @@ Using the link above helps support further development of EZMonitor, at no addit
 ## Support
 Open an issue in git ...
 
-
+[EZMonitor Issues](https://github.com/Agundur-KDE/EZMonitor/issues)
 
 
 ## Roadmap
@@ -114,7 +118,7 @@ Open an issue in git ...
 ## Contributing
 accepting contributions ...
 
-
+[EZMonitor](https://github.com/Agundur-KDE/EZMonitor)
 
 
 
