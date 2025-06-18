@@ -5,24 +5,19 @@ import org.kde.kcmutils as KCM
 import org.kde.kirigami as Kirigami
 
 KCM.SimpleKCM {
-    property string cfg_Host
-    property int cfg_Port
-    property string cfg_HostDefault
-    property int cfg_PortDefault
+    // onCfg_HostChanged: {
+    //     cfg_Host = updateIpTextField.text;
+    // }
+    // onCfg_PortChanged: {
+    //     cfg_Port = updatePortnumberSpinBox.value;
+    // }
 
-    onCfg_HostChanged: {
-        cfg_Host = updateIpTextField.text;
-    }
-    onCfg_PortChanged: {
-        cfg_Port = updatePortnumberSpinBox.value;
-    }
+    // property string cfg_Host
+    property alias cfg_Host: updateIpTextField.value
+    property alias cfg_Port: updatePortnumberSpinBox.text
 
     Kirigami.FormLayout {
         QQC2.TextField {
-            // validator: RegularExpressionValidator {
-            //     regularExpression:  /^((?:[0-1]?[0-9]?[0-9]|2[0-4][0-9]|25[0-5])\.){0,3}(?:[0-1]?[0-9]?[0-9]|2[0-4][0-9]|25[0-5])$/
-            // }
-
             id: updateIpTextField
 
             inputMask: "000.000.000.000;_"

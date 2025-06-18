@@ -20,10 +20,5 @@
     "X-Plasma-API-Minimum-Version": "6.0",
     "X-KDE-PluginInfo-Name": "de.agundur.ezmonitor",
     "X-Plasma-API": "declarativeappletscript",
-    "X-Plasma-MainScript": "ui/main.qml",
-    "X-KDE-ConfigModule": "main",
-    "X-Plasma-ConfigPlugins": [
-        "ConfigMisc",
-        "ConfigDisplay"
-    ]
+    "X-Plasma-MainScript": "ui/main.qml"
 }
