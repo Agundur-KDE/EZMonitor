@@ -1,4 +1,5 @@
 import QtQuick
+import QtQuick.Controls 2.15
 import QtQuick.Layouts
 import org.kde.kirigami as Kirigami
 import org.kde.plasma.components as PlasmaComponents
@@ -19,6 +20,7 @@ PlasmoidItem {
     property string t1: ""
     property string t2: ""
     property string tsumm: "0"
+    property string displayMode: plasmoid.configuration.displayMode
 
     function callback(x) {
         if (x.responseText) {
@@ -48,6 +50,11 @@ PlasmoidItem {
     implicitHeight: Kirigami.Units.gridUnit * 10
     implicitWidth: Kirigami.Units.gridUnit * 10
 
+    Loader {
+        anchors.fill: parent
+        sourceComponent: displayMode === "Compact" ? compactView : fullView
+    }
+
     Timer {
         running: true
         repeat: true
@@ -57,6 +64,8 @@ PlasmoidItem {
     }
 
     fullRepresentation: ColumnLayout {
+        id: fullView
+
         readonly property bool isVertical: {
             switch (Plasmoid.formFactor) {
             case PlasmaCore.Types.Planar:
@@ -74,6 +83,7 @@ PlasmoidItem {
         spacing: 5
         width: isVertical ? root.width : implicitWidth
         height: isVertical ? implicitHeight : root.height
+        anchors.fill: parent
 
         PlasmaComponents.Label {
             font: Kirigami.Theme.defaultFont
@@ -105,6 +115,33 @@ PlasmoidItem {
             Layout.leftMargin: 5
             wrapMode: Text.Wrap
             text: i18n("Today: " + (Math.round(tsumm * 100) / 100) + " kWh")
+        }
+
+    }
+
+    compactRepresentation: ColumnLayout {
+        id: compactView
+
+        width: Math.max(100, implicitWidth)
+        height: Math.max(40, implicitHeight)
+
+        RowLayout {
+            anchors.centerIn: parent
+            spacing: 6
+
+            Image {
+                source: "image://icon/weather-clear" // oder z. B. "applications-energy"
+                width: 24
+                height: 24
+            }
+
+            PlasmaComponents.Label {
+                id: powerLabel
+
+                wrapMode: Text.Wrap
+                text: i18n("Total: " + summ + " Watt")
+            }
+
         }
 
     }
