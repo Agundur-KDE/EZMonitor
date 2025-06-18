@@ -1,34 +1,17 @@
-import QtQuick
-import org.kde.plasma.configuration
+import QtQuick 2.15
+import org.kde.plasma.configuration 2.0
 
 ConfigModel {
     ConfigCategory {
-        name: i18n("Misc")
-        icon: "preferences-system-other"
-        source: "config/ConfigMisc.qml"
+        name: i18nc("@title", "Network")
+        icon: "network-wireless"
+        source: "configNetwork.qml"
     }
 
     ConfigCategory {
-        name: i18n("Display")
-        icon: "view-compact"
-
-        ConfigEntry {
-            name: "displayMode"
-            type: "String"
-            defaultValue: "Full"
-            label: i18n("Display Mode")
-            options: [
-                ConfigOption {
-                    name: "Compact"
-                    label: i18n("Compact")
-                },
-                ConfigOption {
-                    name: "Full"
-                    label: i18n("Full")
-                }
-            ]
-        }
-
+        name: i18nc("@title", "Appearance")
+        icon: "preferences-desktop-color"
+        source: "configAppearance.qml"
     }
 
 }

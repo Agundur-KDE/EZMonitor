@@ -1,25 +1,29 @@
-<?xml version="1.0"?>
-<kcfg xmlns="http://www.kde.org/standards/kcfg/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.kde.org/standards/kcfg/1.0       http://www.kde.org/standards/kcfg/1.0/kcfg.xsd">
-    <kcfgfile name=""/>
-    <group name="Misc">
-        <entry name="Port" type="Int">
-            <default>8050</default>
-            <tooltip>The port the webserver of the EZ 1 M is listening on</tooltip>
-            <whatsthis>Hint: the EZ 1 M must be running in local mode !</whatsthis>
-        </entry>
-        <entry name="Host" type="string">
-            <default>192.168.178.38</default>
-            <tooltip>The ip the the EZ 1 M is running on</tooltip>
-            <whatsthis>Hint: the EZ 1 M must be running in local mode !</whatsthis>
-        </entry>
-    </group>
-    <group name="Display">
-        <entry name="displayMode" type="String">
-            <default>Full</default>
-            <choices>
-                <choice name="Full"/>
-                <choice name="Compact"/>
-            </choices>
-        </entry>
-    </group>
+<?xml version="1.0" encoding="UTF-8"?>
+<kcfg xmlns="http://www.kde.org/standards/kcfg/1.0"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.kde.org/standards/kcfg/1.0
+      http://www.kde.org/standards/kcfg/1.0/kcfg.xsd" >
+  <kcfgfile name=""/>
+
+  <group name="Appearance">
+    <entry name="imagePath" type="String">
+      <default></default>
+    </entry>
+    <entry name="useImage" type="Bool">
+        <default>false</default>
+    </entry>
+    <entry name="showNumerals" type="Bool">
+        <default>true</default>
+    </entry>
+    <entry name="boardColor" type="Color">
+        <default>#333333</default>
+    </entry>
+    <entry name="numberColor" type="Color">
+        <default>#ffffff</default>
+    </entry>
+    <entry name="boardSize" type="Int">
+        <default>4</default>
+    </entry>
+  </group>
+
 </kcfg>
