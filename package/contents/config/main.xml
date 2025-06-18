@@ -1,10 +1,6 @@
-<kcfg xmlns="http://www.kde.org/standards/kcfg/1.0"
-      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xsi:schemaLocation="http://www.kde.org/standards/kcfg/1.0
-      http://www.kde.org/standards/kcfg/1.0/kcfg.xsd" >
+<?xml version="1.0"?>
+<kcfg xmlns="http://www.kde.org/standards/kcfg/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.kde.org/standards/kcfg/1.0       http://www.kde.org/standards/kcfg/1.0/kcfg.xsd">
     <kcfgfile name=""/>
-
-
     <group name="Misc">
         <entry name="Port" type="Int">
             <default>8050</default>
@@ -17,5 +13,13 @@
             <whatsthis>Hint: the EZ 1 M must be running in local mode !</whatsthis>
         </entry>
     </group>
+    <group name="Display">
+        <entry name="displayMode" type="String">
+            <default>Full</default>
+            <choices>
+                <choice name="Full"/>
+                <choice name="Compact"/>
+            </choices>
+        </entry>
+    </group>
 </kcfg>
-
