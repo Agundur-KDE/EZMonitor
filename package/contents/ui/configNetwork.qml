@@ -15,10 +15,10 @@ import org.kde.kirigami 2.20 as Kirigami
 import org.kde.kquickcontrols 2.0 as KQC
 
 KCM.SimpleKCM {
-    property string cfg_HostDefault
-    property int cfg_PortDefault
     property int cfg_Port
     property string cfg_Host
+    property string cfg_HostDefault
+    property int cfg_PortDefault
 
     Kirigami.FormLayout {
         QtControls.TextField {

@@ -1,3 +1,10 @@
+/*
+ * SPDX-FileCopyrightText: 2025 Agundur <info@agundur.de>
+ *
+ * SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
+ *
+ */
+
 import QtQuick
 import QtQuick.Controls 2.15
 import QtQuick.Layouts
@@ -14,13 +21,14 @@ PlasmoidItem {
 
     property string host: Plasmoid.configuration.Host //"192.168.178.38"
     property int port: Plasmoid.configuration.Port //8050
+    property color bckgColor: Plasmoid.configuration.bckgColor //#2a2e32
+    property string cfg_viewMode: Plasmoid.configuration.viewMode
     property string p1: ""
     property string p2: ""
     property string summ: "0"
     property string t1: ""
     property string t2: ""
     property string tsumm: "0"
-    property string displayMode: plasmoid.configuration.displayMode
 
     function callback(x) {
         if (x.responseText) {
@@ -43,16 +51,17 @@ PlasmoidItem {
         xhr.send();
     }
 
+    // compactRepresentation: compactView
+    // fullRepresentation: fullView
     Plasmoid.status: PlasmaCore.Types.ActiveStatus
     Plasmoid.backgroundHints: PlasmaCore.Types.DefaultBackground | PlasmaCore.Types.ConfigurableBackground
     Layout.minimumWidth: Kirigami.Units.gridUnit * 5
     Layout.minimumHeight: Kirigami.Units.gridUnit * 5
     implicitHeight: Kirigami.Units.gridUnit * 10
     implicitWidth: Kirigami.Units.gridUnit * 10
-
-    Loader {
-        anchors.fill: parent
-        sourceComponent: displayMode === "Compact" ? compactView : fullView
+    preferredRepresentation: cfg_viewMode === "Compact" ? compactRepresentation : fullRepresentation
+    Component.onCompleted: {
+        console.log(cfg_viewMode);
     }
 
     Timer {
@@ -84,6 +93,9 @@ PlasmoidItem {
         width: isVertical ? root.width : implicitWidth
         height: isVertical ? implicitHeight : root.height
         anchors.fill: parent
+        Component.onCompleted: {
+            console.log(PlasmaCore.Theme.backgroundColor);
+        }
 
         PlasmaComponents.Label {
             font: Kirigami.Theme.defaultFont
@@ -126,11 +138,11 @@ PlasmoidItem {
         height: Math.max(40, implicitHeight)
 
         RowLayout {
-            anchors.centerIn: parent
-            spacing: 6
+            Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+            spacing: 2
 
             Image {
-                source: "image://icon/weather-clear" // oder z. B. "applications-energy"
+                source: "image://weather-clear-symbolic" // oder z. B. "applications-energy"
                 width: 24
                 height: 24
             }

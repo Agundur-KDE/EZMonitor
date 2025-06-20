@@ -1,144 +1,67 @@
 /*
- * SPDX-FileCopyrightText: 2013 Bhushan Shah <bhush94@gmail.com>
- * SPDX-FileCopyrightText: 2013 Sebastian Kügler <sebas@kde.org>
- * SPDX-FileCopyrightText: 2014 Kai Uwe Broulik <kde@privat.broulik.de>
- * SPDX-FileCopyrightText: 2014 Jeremy Whiting <jpwhiting@kde.org>
+ * SPDX-FileCopyrightText: 2025 Agundur <info@agundur.de>
  *
  * SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
+ *
  */
 
-import QtQuick 2.15
 import QtCore
+import QtQuick 2.15
 import QtQuick.Controls 2.15 as QtControls
-import QtQuick.Layouts 1.15
 import QtQuick.Dialogs as QtDialogs
-
-import org.kde.kquickcontrols 2.0 as KQC
-import org.kde.kirigami 2.20 as Kirigami
+import QtQuick.Layouts 1.15
 import org.kde.kcmutils as KCM
+import org.kde.kirigami 2.20 as Kirigami
+import org.kde.kquickcontrols 2.0 as KQC
 
 KCM.SimpleKCM {
-    property alias cfg_boardSize: sizeSpinBox.value
-    property alias cfg_boardColor: pieceColorPicker.color
-    property alias cfg_numberColor: numberColorPicker.color
-    property alias cfg_showNumerals: showNumeralsCheckBox.checked
-
-    property alias cfg_useImage: imageBackgroundRadioButton.checked
-    property alias cfg_imagePath: imagePathTextField.text
+    property color cfg_bckgColor: Plasmoid.configuration.bckgColor
+    property string cfg_viewMode: Plasmoid.configuration.viewMode
+    property color cfg_bckgColorDefault
+    property string cfg_viewModeDefault
 
     Kirigami.FormLayout {
-
-        QtControls.ButtonGroup {
-            id: radioGroup
-        }
-
-        // Need to manually set checked state for the color button based on the
-        // other onebecause it's not aliased to a saved property
-        Component.onCompleted: {
-            colorBackgroundRadioButton.checked = !imageBackgroundRadioButton.checked;
-        }
-
-        QtControls.SpinBox {
-            id: sizeSpinBox
-            Kirigami.FormData.label: i18nc("@label:spinbox", "Grid size:")
-            from: 2
-            to: 99
-        }
-
-        Item {
-            Kirigami.FormData.isSection: true
-        }
-
         // Color background
+
         RowLayout {
             Kirigami.FormData.label: i18n("Background:")
 
-            QtControls.RadioButton {
-                id: colorBackgroundRadioButton
-                Layout.preferredWidth: Math.max(imageBackgroundRadioButton.implicitWidth, colorBackgroundRadioButton.implicitWidth)
-                QtControls.ButtonGroup.group: radioGroup
-
-                text: i18n("Color:")
-            }
-
             KQC.ColorButton {
-                id: pieceColorPicker
-                enabled: colorBackgroundRadioButton.checked
+                id: bckgColorPicker
+
+                onClicked: cfg_bckgColor = bckgColorPicker.color
             }
+
         }
 
-        // Image background
-        RowLayout {
-            QtControls.RadioButton {
-                id: imageBackgroundRadioButton
-                Layout.preferredWidth: Math.max(imageBackgroundRadioButton.implicitWidth, colorBackgroundRadioButton.implicitWidth)
-                QtControls.ButtonGroup.group: radioGroup
+        QtControls.GroupBox {
+            Kirigami.FormData.label: i18n("View Mode:")
 
-                text: i18n("Image:")
-            }
+            RowLayout {
+                id: layout
 
-            Kirigami.ActionTextField {
-                id: imagePathTextField
-                enabled: imageBackgroundRadioButton.checked
+                spacing: 20
 
-                Layout.fillWidth: true
-                placeholderText: i18nc("@info:placeholder", "Path to custom image…")
+                QtControls.RadioButton {
+                    id: fullViewButton
 
-                rightActions: [
-                    Kirigami.Action {
-                        icon.name: "edit-clear"
-                        visible: imagePathTextField.text.length !== 0
-                        onTriggered: imagePathTextField.text = "";
-                    }
-                ]
-            }
-
-            QtControls.Button {
-                id: imageButton
-                enabled: imageBackgroundRadioButton.checked
-
-                icon.name: "document-open"
-
-                QtControls.ToolTip {
-                    visible: imageButton.hovered
-                    text: i18nc("@info:tooltip", "Choose image…")
+                    text: "Full"
+                    checked: cfg_viewMode === "Full"
+                    onClicked: cfg_viewMode = "Full"
                 }
 
-                onClicked: imagePicker.open()
+                QtControls.RadioButton {
+                    id: compactViewButton
 
-                QtDialogs.FileDialog {
-                    id: imagePicker
-
-                    title: i18nc("@title:window", "Choose an Image")
-
-                    currentFolder: StandardPaths.standardLocations(StandardPaths.PicturesLocation)[0]
-
-                    // TODO ask QImageReader for supported formats
-                    nameFilters: [ i18n("Image Files (*.png *.jpg *.jpeg *.bmp *.svg *.svgz)") ]
-
-                    onAccepted: {
-                        imagePathTextField.text = selectedFile.toString().replace("file://", "")
-                    }
+                    text: "Compact"
+                    checked: cfg_viewMode === "Compact"
+                    onClicked: cfg_viewMode = "Compact"
                 }
-            }
-        }
 
-        Item {
-            Kirigami.FormData.isSection: true
-        }
-
-        RowLayout {
-            Kirigami.FormData.label: i18n("Tiles:")
-
-            QtControls.CheckBox {
-                id: showNumeralsCheckBox
-                text: i18n("Colored numbers:")
             }
 
-            KQC.ColorButton {
-                id: numberColorPicker
-                enabled: showNumeralsCheckBox.checked
-            }
         }
+
     }
+
 }
