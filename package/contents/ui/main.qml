@@ -143,6 +143,15 @@ PlasmoidItem {
         width: Math.max(50, implicitWidth)
         height: Math.max(20, implicitHeight)
 
+        MouseArea {
+            anchors.fill: parent
+            hoverEnabled: true
+            onClicked: Plasmoid.expanded = true
+            cursorShape: Qt.PointingHandCursor
+            onEntered: console.log("Hover on panel icon")
+            onExited: console.log("Left panel icon")
+        }
+
         RowLayout {
             Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
             spacing: 2
