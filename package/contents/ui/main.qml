@@ -134,17 +134,17 @@ PlasmoidItem {
     compactRepresentation: ColumnLayout {
         id: compactView
 
-        width: Math.max(100, implicitWidth)
-        height: Math.max(40, implicitHeight)
+        width: Math.max(50, implicitWidth)
+        height: Math.max(20, implicitHeight)
 
         RowLayout {
             Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
             spacing: 2
 
-            Image {
-                source: "image://weather-clear-symbolic" // oder z. B. "applications-energy"
-                width: 24
-                height: 24
+            ToolButton {
+                icon.name: "weather-clear-symbolic"
+                width: 32
+                height: 32
             }
 
             PlasmaComponents.Label {
