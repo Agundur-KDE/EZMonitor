@@ -14,9 +14,6 @@ import org.kde.plasma.core as PlasmaCore
 import org.kde.plasma.plasmoid
 
 PlasmoidItem {
-    // TODO: Plasmoid.fullRepresentation and  Plasmoid.compactRepresentation
-    // flow:   isVertical ? GridLayout.TopToBottom : GridLayout.LeftToRight
-
     id: root
 
     property string host: Plasmoid.configuration.Host //"192.168.178.38"
@@ -59,7 +56,8 @@ PlasmoidItem {
     Layout.minimumHeight: Kirigami.Units.gridUnit * 5
     implicitHeight: Kirigami.Units.gridUnit * 10
     implicitWidth: Kirigami.Units.gridUnit * 10
-    preferredRepresentation: cfg_viewMode === "Compact" ? compactRepresentation : fullRepresentation
+    // preferredRepresentation: cfg_viewMode === "Compact" ? compactRepresentation : fullRepresentation
+    preferredRepresentation: (Plasmoid.location === PlasmaCore.Types.TopEdge || Plasmoid.location === PlasmaCore.Types.BottomEdge || Plasmoid.location === PlasmaCore.Types.LeftEdge || Plasmoid.location === PlasmaCore.Types.RightEdge) ? compactRepresentation : (cfg_viewMode === "Compact" ? compactRepresentation : fullRepresentation)
 
     Timer {
         running: true
