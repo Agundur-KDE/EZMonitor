@@ -69,6 +69,17 @@ PlasmoidItem {
         onTriggered: request('http://' + host + ':' + port + '/getOutputData', callback)
     }
 
+    Component {
+        id: windowIconComponent
+
+        Kirigami.Icon {
+            source: "weather-clear-symbolic"
+            width: 22
+            height: 22
+        }
+
+    }
+
     fullRepresentation: ColumnLayout {
         id: fullView
 
