@@ -60,10 +60,6 @@ PlasmoidItem {
     implicitHeight: Kirigami.Units.gridUnit * 10
     implicitWidth: Kirigami.Units.gridUnit * 10
     preferredRepresentation: cfg_viewMode === "Compact" ? compactRepresentation : fullRepresentation
-    color: bckgColor
-    Component.onCompleted: {
-        console.log(cfg_viewMode);
-    }
 
     Timer {
         running: true

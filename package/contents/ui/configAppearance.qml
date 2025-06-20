@@ -23,17 +23,6 @@ KCM.SimpleKCM {
     Kirigami.FormLayout {
         // Color background
 
-        RowLayout {
-            Kirigami.FormData.label: i18n("Background:")
-
-            KQC.ColorButton {
-                id: bckgColorPicker
-
-                onClicked: cfg_bckgColor = bckgColorPicker.color
-            }
-
-        }
-
         QtControls.GroupBox {
             Kirigami.FormData.label: i18n("View Mode:")
 
