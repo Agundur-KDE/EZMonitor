@@ -150,7 +150,7 @@ PlasmoidItem {
             anchors.fill: parent
             hoverEnabled: true
             onClicked: {
-                expanded = true;
+                expanded = !expanded;
             }
             cursorShape: Qt.PointingHandCursor
         }
