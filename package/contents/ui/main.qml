@@ -85,8 +85,6 @@ PlasmoidItem {
         Layout.minimumHeight: layout.implicitHeight + 10
 
         ColumnLayout {
-            // anchors.margins: 10
-
             id: layout
 
             anchors.fill: parent
@@ -138,7 +136,7 @@ PlasmoidItem {
     compactRepresentation: Item {
         id: compactView
 
-        Layout.minimumWidth: powerLabel.implicitWidth
+        Layout.minimumWidth: iconItem.implicitWidth + powerLabel.implicitWidth
         Layout.minimumHeight: powerLabel.implicitHeight
 
         MouseArea {
@@ -151,19 +149,24 @@ PlasmoidItem {
         }
 
         RowLayout {
-            // ToolButton {
-            //     icon.name: "weather-clear-symbolic"
-            //     width: 32
-            //     height: 32
-            // }
+            id: row
 
-            Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-            spacing: 2
+            anchors.fill: parent
+            anchors.centerIn: parent // Zentriert das ganze Layout im Parent
+            spacing: PlasmaCore.Units.smallSpacing
+
+            Kirigami.Icon {
+                id: iconItem
+
+                source: "weather-clear-symbolic"
+                implicitWidth: Kirigami.Units.iconSizes.sizeForLabels
+                implicitHeight: Kirigami.Units.iconSizes.sizeForLabels
+            }
 
             PlasmaComponents.Label {
                 id: powerLabel
 
-                Layout.preferredWidth: 100
+                Layout.preferredWidth: 200
                 wrapMode: Text.Wrap
                 text: i18n("Total: " + summ + " Watt")
             }
