@@ -48,6 +48,7 @@ PlasmoidItem {
         xhr.send();
     }
 
+    toolTipMainText: Plasmoid.title
     preferredRepresentation: {
         if (Plasmoid.location === PlasmaCore.Types.Floating || Plasmoid.location === PlasmaCore.Types.Desktop)
             return cfg_viewMode === "Compact" ? compactRepresentation : fullRepresentation;
@@ -57,10 +58,6 @@ PlasmoidItem {
     Plasmoid.icon: "weather-clear-symbolic"
     Plasmoid.status: PlasmaCore.Types.ActiveStatus
     Plasmoid.backgroundHints: PlasmaCore.Types.DefaultBackground | PlasmaCore.Types.ConfigurableBackground
-    Layout.minimumWidth: Kirigami.Units.gridUnit * 5
-    Layout.minimumHeight: Kirigami.Units.gridUnit * 5
-    implicitHeight: Kirigami.Units.gridUnit * 10
-    implicitWidth: Kirigami.Units.gridUnit * 10
 
     Timer {
         running: true
@@ -84,25 +81,17 @@ PlasmoidItem {
     fullRepresentation: Item {
         id: fullView
 
-        ColumnLayout {
-            readonly property bool isVertical: {
-                switch (Plasmoid.formFactor) {
-                case PlasmaCore.Types.Planar:
-                case PlasmaCore.Types.MediaCenter:
-                case PlasmaCore.Types.Application:
-                default:
-                    if (root.height > root.width)
-                        return true;
-                    else
-                        return false;
-                }
-            }
+        Layout.minimumWidth: today.implicitWidth + 10
+        Layout.minimumHeight: layout.implicitHeight + 10
 
-            Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-            spacing: 5
-            width: isVertical ? root.width : implicitWidth
-            height: isVertical ? implicitHeight : root.height
+        ColumnLayout {
+            // anchors.margins: 10
+
+            id: layout
+
             anchors.fill: parent
+            anchors.centerIn: parent // Zentriert das ganze Layout im Parent
+            spacing: PlasmaCore.Units.smallSpacing
 
             PlasmaComponents.Label {
                 font: Kirigami.Theme.defaultFont
@@ -110,6 +99,7 @@ PlasmoidItem {
                 Layout.leftMargin: 5
                 wrapMode: Text.Wrap
                 text: i18n("Panel 1: " + root.p1 + " Watt")
+                Layout.preferredWidth: 400
             }
 
             PlasmaComponents.Label {
@@ -118,6 +108,7 @@ PlasmoidItem {
                 Layout.leftMargin: 5
                 wrapMode: Text.Wrap
                 text: i18n("Panel 2: " + root.p2 + " Watt")
+                Layout.preferredWidth: 400
             }
 
             PlasmaComponents.Label {
@@ -126,14 +117,18 @@ PlasmoidItem {
                 Layout.leftMargin: 5
                 wrapMode: Text.Wrap
                 text: i18n("Total: " + summ + " Watt")
+                Layout.preferredWidth: 400
             }
 
             PlasmaComponents.Label {
+                id: today
+
                 font: Kirigami.Theme.defaultFont
                 Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
                 Layout.leftMargin: 5
                 wrapMode: Text.Wrap
                 text: i18n("Today: " + (Math.round(tsumm * 100) / 100) + " kWh")
+                Layout.preferredWidth: 400
             }
 
         }
@@ -143,8 +138,8 @@ PlasmoidItem {
     compactRepresentation: Item {
         id: compactView
 
-        width: Math.max(50, implicitWidth)
-        height: Math.max(20, implicitHeight)
+        Layout.minimumWidth: powerLabel.implicitWidth
+        Layout.minimumHeight: powerLabel.implicitHeight
 
         MouseArea {
             anchors.fill: parent
@@ -156,18 +151,19 @@ PlasmoidItem {
         }
 
         RowLayout {
+            // ToolButton {
+            //     icon.name: "weather-clear-symbolic"
+            //     width: 32
+            //     height: 32
+            // }
+
             Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
             spacing: 2
-
-            ToolButton {
-                icon.name: "weather-clear-symbolic"
-                width: 32
-                height: 32
-            }
 
             PlasmaComponents.Label {
                 id: powerLabel
 
+                Layout.preferredWidth: 100
                 wrapMode: Text.Wrap
                 text: i18n("Total: " + summ + " Watt")
             }
