@@ -48,16 +48,19 @@ PlasmoidItem {
         xhr.send();
     }
 
-    // compactRepresentation: compactView
-    // fullRepresentation: fullView
+    preferredRepresentation: {
+        if (Plasmoid.location === PlasmaCore.Types.Floating || Plasmoid.location === PlasmaCore.Types.Desktop)
+            return cfg_viewMode === "Compact" ? compactRepresentation : fullRepresentation;
+
+        return compactRepresentation;
+    }
+    Plasmoid.icon: "weather-clear-symbolic"
     Plasmoid.status: PlasmaCore.Types.ActiveStatus
     Plasmoid.backgroundHints: PlasmaCore.Types.DefaultBackground | PlasmaCore.Types.ConfigurableBackground
     Layout.minimumWidth: Kirigami.Units.gridUnit * 5
     Layout.minimumHeight: Kirigami.Units.gridUnit * 5
     implicitHeight: Kirigami.Units.gridUnit * 10
     implicitWidth: Kirigami.Units.gridUnit * 10
-    // preferredRepresentation: cfg_viewMode === "Compact" ? compactRepresentation : fullRepresentation
-    preferredRepresentation: (Plasmoid.location === PlasmaCore.Types.TopEdge || Plasmoid.location === PlasmaCore.Types.BottomEdge || Plasmoid.location === PlasmaCore.Types.LeftEdge || Plasmoid.location === PlasmaCore.Types.RightEdge) ? compactRepresentation : (cfg_viewMode === "Compact" ? compactRepresentation : fullRepresentation)
 
     Timer {
         running: true
@@ -78,81 +81,83 @@ PlasmoidItem {
 
     }
 
-    fullRepresentation: ColumnLayout {
+    fullRepresentation: Item {
         id: fullView
 
-        readonly property bool isVertical: {
-            switch (Plasmoid.formFactor) {
-            case PlasmaCore.Types.Planar:
-            case PlasmaCore.Types.MediaCenter:
-            case PlasmaCore.Types.Application:
-            default:
-                if (root.height > root.width)
-                    return true;
-                else
-                    return false;
+        ColumnLayout {
+            readonly property bool isVertical: {
+                switch (Plasmoid.formFactor) {
+                case PlasmaCore.Types.Planar:
+                case PlasmaCore.Types.MediaCenter:
+                case PlasmaCore.Types.Application:
+                default:
+                    if (root.height > root.width)
+                        return true;
+                    else
+                        return false;
+                }
             }
-        }
 
-        Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-        spacing: 5
-        width: isVertical ? root.width : implicitWidth
-        height: isVertical ? implicitHeight : root.height
-        anchors.fill: parent
-        Component.onCompleted: {
-            console.log(PlasmaCore.Theme.backgroundColor);
-        }
+            Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+            spacing: 5
+            width: isVertical ? root.width : implicitWidth
+            height: isVertical ? implicitHeight : root.height
+            anchors.fill: parent
 
-        PlasmaComponents.Label {
-            font: Kirigami.Theme.defaultFont
-            Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
-            Layout.leftMargin: 5
-            wrapMode: Text.Wrap
-            text: i18n("Panel 1: " + root.p1 + " Watt")
-        }
+            PlasmaComponents.Label {
+                font: Kirigami.Theme.defaultFont
+                Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
+                Layout.leftMargin: 5
+                wrapMode: Text.Wrap
+                text: i18n("Panel 1: " + root.p1 + " Watt")
+            }
 
-        PlasmaComponents.Label {
-            font: Kirigami.Theme.defaultFont
-            Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
-            Layout.leftMargin: 5
-            wrapMode: Text.Wrap
-            text: i18n("Panel 2: " + root.p2 + " Watt")
-        }
+            PlasmaComponents.Label {
+                font: Kirigami.Theme.defaultFont
+                Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
+                Layout.leftMargin: 5
+                wrapMode: Text.Wrap
+                text: i18n("Panel 2: " + root.p2 + " Watt")
+            }
 
-        PlasmaComponents.Label {
-            font: Kirigami.Theme.defaultFont
-            Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
-            Layout.leftMargin: 5
-            wrapMode: Text.Wrap
-            text: i18n("Total: " + summ + " Watt")
-        }
+            PlasmaComponents.Label {
+                font: Kirigami.Theme.defaultFont
+                Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
+                Layout.leftMargin: 5
+                wrapMode: Text.Wrap
+                text: i18n("Total: " + summ + " Watt")
+            }
 
-        PlasmaComponents.Label {
-            font: Kirigami.Theme.defaultFont
-            Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
-            Layout.leftMargin: 5
-            wrapMode: Text.Wrap
-            text: i18n("Today: " + (Math.round(tsumm * 100) / 100) + " kWh")
+            PlasmaComponents.Label {
+                font: Kirigami.Theme.defaultFont
+                Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
+                Layout.leftMargin: 5
+                wrapMode: Text.Wrap
+                text: i18n("Today: " + (Math.round(tsumm * 100) / 100) + " kWh")
+            }
+
         }
 
     }
 
-    compactRepresentation: ColumnLayout {
+    compactRepresentation: Item {
         id: compactView
 
         width: Math.max(50, implicitWidth)
         height: Math.max(20, implicitHeight)
 
+        MouseArea {
+            anchors.fill: parent
+            hoverEnabled: true
+            onClicked: {
+                expanded = true;
+            }
+            cursorShape: Qt.PointingHandCursor
+        }
+
         RowLayout {
             Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
             spacing: 2
-
-            MouseArea {
-                anchors.fill: parent
-                hoverEnabled: true
-                onClicked: Plasmoid.expanded = true
-                cursorShape: Qt.PointingHandCursor
-            }
 
             ToolButton {
                 icon.name: "weather-clear-symbolic"
