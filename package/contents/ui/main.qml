@@ -85,11 +85,12 @@ PlasmoidItem {
         Layout.minimumHeight: layout.implicitHeight + 10
 
         ColumnLayout {
+            // spacing: PlasmaCore.Units.smallSpacing
+
             id: layout
 
             anchors.fill: parent
             anchors.centerIn: parent // Zentriert das ganze Layout im Parent
-            spacing: PlasmaCore.Units.smallSpacing
 
             PlasmaComponents.Label {
                 font: Kirigami.Theme.defaultFont
