@@ -13,30 +13,28 @@
   <a href="https://store.kde.org/p/2290729">
   <img src="https://img.shields.io/badge/KDE%20Plasma-1D99F3?logo=kdeplasma&logoColor=fff" alt="EZMonitor">
 
-<noscript><a href="https://liberapay.com/Agundur/donate"><img alt="Donate using Liberapay" src="https://liberapay.com/assets/widgets/donate.svg"></a></noscript>
-</a></div>
+</div>
 
 ## Description
 EZMonitor is a lightweight KDE Plasma 6 applet that displays real-time data from your solar inverter.
 
 Developed for the APsystems EZ1 microinverter series, it connects to the local JSON API provided by the device and shows:
-- 🌞 Live panel power (in Watts)
-- 📊 Daily yield (in kWh)
-- 🔄 Updates every 10 seconds
+-  Live panel power (in Watts)
+- Daily yield (in kWh)
+- Updates every 10 seconds
 
 No cloud service, no third-party backend – all data stays local.
 
-## 🏠 Homepage
+##  Homepage
 
-📦 [https://github.com/Agundur-KDE/EZMonitor](https://github.com/Agundur-KDE/EZMonitor)
+[https://www.agundur.de]https://www.agundur.de/projects/apsystems-ez1-m-microinverter.html)
 
-## ✅ Features
+## Features
 
 - Built with pure QML – no C++ or Python dependencies
 - Compatible with Plasma 6
 - Uses standard HTTP API (see: [APsystems EZ1 API Manual](https://forum.iobroker.net/assets/uploads/files/1701255814508-apsystems-ez1-local-api-user-manual.pdf))
 - Clean UI for live monitoring
-
 
 
 ## Visuals
@@ -64,7 +62,7 @@ make install (as root)
 kpackagetool6 --type Plasma/Applet --install de.agundur.ezmonitor-X.Y.Z.plasmoid
 ```
 
-## 🛠️ Installing EZMonitor via the openSUSE Build Service Repository
+##  Installing EZMonitor via the openSUSE Build Service Repository
 
 [![build result](https://build.opensuse.org/projects/home:Agundur/packages/EZMonitor/badge.svg?type=default)](https://build.opensuse.org/package/show/home:Agundur/EZMonitor)
 
