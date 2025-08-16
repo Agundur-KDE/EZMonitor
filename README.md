@@ -27,7 +27,7 @@ No cloud service, no third-party backend – all data stays local.
 
 ##  Homepage
 
-[https://www.agundur.de]https://www.agundur.de/projects/apsystems-ez1-m-microinverter.html)
+[https://www.agundur.de](https://www.agundur.de/projects/apsystems-ez1-m-microinverter.html)
 
 ## Features
 
