@@ -1,0 +1,19 @@
+Source: ezmonitor
+Section: kde
+Priority: optional
+Maintainer: Agundur <info@agundur.de>
+Build-Depends: debhelper-compat (= 13),
+ cmake, extra-cmake-modules, pkg-kde-tools, pkg-config,
+ qt6-base-dev, qt6-declarative-dev, qt6-declarative-dev-tools, qt6-base-dev-tools,
+ appstream
+Standards-Version: 4.7.0
+Rules-Requires-Root: no
+Homepage: https://github.com/Agundur-KDE/EZMonitor
+
+Package: ezmonitor
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: KDE Plasma 6 panel widget for APsystems EZ1 solar power monitoring
+ EZMonitor queries an APsystems EZ1 microinverter's local JSON API and
+ shows live solar panel power output and daily yield in the Plasma panel.
+ No cloud service involved, all data stays local.

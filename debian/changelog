@@ -1,0 +1,10 @@
+ezmonitor (0.1.1-1) unstable; urgency=medium
+
+  * First automated .deb/.plasmoid/RPM release via GitHub Actions.
+  * Fixed License metadata (was "GPL", LICENSE file was even the wrong
+    license text entirely — LGPL addendum instead of GPL-3.0-or-later).
+  * Added a real app icon from the repo's own unused sun-fill.svg (was
+    borrowing the unrelated "electron" icon).
+  * CMakeLists.txt no longer requires a C++ toolchain (pure QML plasmoid).
+
+ -- Agundur <info@agundur.de>  Wed, 08 Jul 2026 12:00:00 +0200
