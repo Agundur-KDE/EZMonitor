@@ -26,9 +26,18 @@ PlasmoidItem {
     property string t1: ""
     property string t2: ""
     property string tsumm: "0"
+    property bool hasError: false
 
     function callback(x) {
-        if (x.responseText) {
+        if (x.readyState !== XMLHttpRequest.DONE)
+            return;
+
+        if (x.status !== 200 || !x.responseText) {
+            hasError = true;
+            return;
+        }
+
+        try {
             var d = JSON.parse(x.responseText);
             root.p1 = d.data.p1;
             root.p2 = d.data.p2;
@@ -36,6 +45,9 @@ PlasmoidItem {
             root.t2 = d.data.e2;
             summ = (parseInt(root.p1) + parseInt(root.p2));
             tsumm = (parseFloat(root.t1) + parseFloat(root.t2));
+            hasError = false;
+        } catch (e) {
+            hasError = true;
         }
     }
 
@@ -55,7 +67,6 @@ PlasmoidItem {
 
         return compactRepresentation;
     }
-    Plasmoid.icon: "weather-clear-symbolic"
     Plasmoid.status: PlasmaCore.Types.ActiveStatus
     Plasmoid.backgroundHints: PlasmaCore.Types.DefaultBackground | PlasmaCore.Types.ConfigurableBackground
 
@@ -65,17 +76,6 @@ PlasmoidItem {
         triggeredOnStart: true
         interval: 10000
         onTriggered: request('http://' + host + ':' + port + '/getOutputData', callback)
-    }
-
-    Component {
-        id: windowIconComponent
-
-        Kirigami.Icon {
-            source: "weather-clear-symbolic"
-            width: 22
-            height: 22
-        }
-
     }
 
     fullRepresentation: Item {
@@ -91,6 +91,16 @@ PlasmoidItem {
 
             anchors.fill: parent
             anchors.centerIn: parent // Zentriert das ganze Layout im Parent
+
+            PlasmaComponents.Label {
+                visible: root.hasError
+                color: Kirigami.Theme.negativeTextColor
+                Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
+                Layout.leftMargin: 5
+                wrapMode: Text.Wrap
+                text: i18n("Can't reach the inverter at %1:%2", root.host, root.port)
+                Layout.preferredWidth: 400
+            }
 
             PlasmaComponents.Label {
                 font: Kirigami.Theme.defaultFont
@@ -159,7 +169,7 @@ PlasmoidItem {
             Kirigami.Icon {
                 id: iconItem
 
-                source: "weather-clear-symbolic"
+                source: Plasmoid.icon
                 implicitWidth: Kirigami.Units.iconSizes.sizeForLabels
                 implicitHeight: Kirigami.Units.iconSizes.sizeForLabels
             }
