@@ -1,3 +1,12 @@
+ezmonitor (0.1.2-1) unstable; urgency=medium
+
+  * Fixed Plasmoid.icon being hardcoded to "weather-clear-symbolic",
+    silently overriding the real app icon added in 0.1.1.
+  * XHR callback now checks readyState/status and shows an error label
+    instead of silently displaying stale data when unreachable.
+
+ -- Agundur <info@agundur.de>  Wed, 08 Jul 2026 16:00:00 +0200
+
 ezmonitor (0.1.1-1) unstable; urgency=medium
 
   * First automated .deb/.plasmoid/RPM release via GitHub Actions.

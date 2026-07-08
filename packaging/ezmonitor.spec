@@ -3,7 +3,7 @@
 %endif
 
 Name:           ezmonitor
-Version:        0.1.1
+Version:        0.1.2
 Release:        1%{?dist}
 Summary:        KDE Plasma 6 panel widget for APsystems EZ1 solar power monitoring
 
@@ -71,6 +71,13 @@ fi
 %{_datadir}/icons/hicolor/scalable/apps/ezmonitor.svg
 
 %changelog
+* Wed Jul 08 2026 Alec <info@agundur.de> - 0.1.2
+- Fixed Plasmoid.icon being hardcoded to "weather-clear-symbolic" in
+  three places, silently overriding the real app icon added in 0.1.1
+- XHR callback now checks readyState/status and shows an error label
+  instead of silently displaying stale data when the inverter is
+  unreachable
+
 * Wed Jul 08 2026 Alec <info@agundur.de> - 0.1.1
 - First automated OBS release via GitHub Actions (obs_scm pinned to the tag)
 - Fixed License metadata (was "GPL", LICENSE file was even the wrong license
